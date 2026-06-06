@@ -25,15 +25,16 @@ def index():
 @app.route('/api/v1/accounts', methods=['POST'], defaults={'referrer': None})
 @app.route('/<referrer>/api/v1/accounts', methods=['POST'])
 def tapbasic(referrer):
-
     # test is request has 'account' key
-    if not request.json or 'account' not in request.json:
+    if not request.json:
         abort(400)
+
     account = request.json.get('account', {})
 
     # make sure all keys are present
-    if any([key not in account
-            for key in ["active_key", "memo_key", "owner_key", "name"]]):
+    if not account:
+        account = request.json
+    if any(key not in account for key in ["active_key", "memo_key", "owner_key", "name"]):
         abort(400)
 
     # prevent massive account registration
