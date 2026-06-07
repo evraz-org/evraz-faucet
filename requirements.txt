@@ -1,7 +1,7 @@
 # git repos
 -e git+https://github.com/xeroc/python-graphenelib@0.5.4#egg=graphenelib
 -e git+https://github.com/xeroc/python-bitshares@0.1.8#egg=bitshares
-autobahn
+autobahn==18.12.1
 pycrypto
 pyyaml
 
