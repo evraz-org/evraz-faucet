@@ -1,37 +1,36 @@
 #!/usr/bin/env python3
 
-import sys
-from flask import Flask
-from flask_script import Manager, Command
+import click
 from app import app, db
 from app import config
-import threading
 
-manager = Manager(app)
+@click.group()
+def cli():
+    pass
 
-
-@manager.command
+@cli.command()
 def install():
-    db.create_all()
+    with app.app_context():
+        db.create_all()
+    click.echo("install OK")
 
-
-@manager.command
+@cli.command()
 def run():
     app.run()
 
-
-@manager.command
+@cli.command()
 def start():
     app.run(debug=True)
 
-
-@manager.command
-def donations(start=None, end=None):
+@cli.command()
+@click.argument('start', required=False)
+@click.argument('end', required=False)
+def donations(start, end):
     import worker_donations
     worker_donations.run(start, end)
+    click.echo("donations OK")
 
-
-@manager.command
+@cli.command()
 def testmail():
     from flask_mail import Message
     from app import mail
@@ -39,7 +38,7 @@ def testmail():
                   sender=config.mail_from,
                   recipients=config.admins)
     mail.send(msg)
-
+    click.echo("testmail sent")
 
 if __name__ == '__main__':
-    manager.run()
+    cli()

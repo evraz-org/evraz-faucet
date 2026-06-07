@@ -44,3 +44,4 @@ class Accounts(db.Model):
             (Accounts.ip == address),
             (Accounts.created > allowedAge)
         ).first()
+

@@ -12,7 +12,8 @@ class Config(dict):
     """ Configuration class loads settings from YAML file
     """
     def __init__(self, *args, **kwargs):
-        config = yaml.load(open("config.yml").read())
+        with open("config.yml", "r") as f:
+            config = yaml.safe_load(f)
         super(Config, self).__init__(config)
 
     __getattr__ = dict.__getitem__
@@ -79,13 +80,11 @@ app.logger.addHandler(log_handler_mail)
 app.logger.addHandler(log_handler_rotate)
 app.logger.addHandler(log_handler_stdout)
 
-# Load views and models
-from . import views, models
-
+# Load models
+from . import models
 
 # Database
-@app.before_first_request
-def before_first_request():
+with app.app_context():
     try:
         models.db.create_all()
     except Exception as e:

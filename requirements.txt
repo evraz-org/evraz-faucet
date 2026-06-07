@@ -1,12 +1,11 @@
-# git repos
--e git+https://github.com/xeroc/python-graphenelib@0.5.4#egg=graphenelib
--e git+https://github.com/xeroc/python-bitshares@0.1.8#egg=bitshares
-autobahn==18.12.1
+graphenelib
+bitshares
+autobahn
 pycrypto
 pyyaml
 
 # flask
-flask
+Flask
 Flask-SQLAlchemy
 Flask-Session
 flask-cors

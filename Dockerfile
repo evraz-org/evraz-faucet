@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.9
 
 WORKDIR /opt/faucet
 
@@ -10,10 +10,10 @@ RUN pip install uwsgi
 COPY . .
 #RUN python manage.py install
 
-RUN uptick set node "wss://btsws.roelandp.nl/ws"
+RUN uptick set node "wss://node.xbts.io/ws"
 
 EXPOSE 9090
 
 ENTRYPOINT [ "./entrypoint.sh" ]
 
-CMD [ "uwsgi", "--ini", "wsgi.ini", "--enable-threads" ]
+CMD [ "uwsgi", "--ini", "wsgi.ini" ]
