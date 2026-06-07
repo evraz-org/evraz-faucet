@@ -1,7 +1,6 @@
-graphenelib
-bitshares==0.7.1
+graphenelib==1.5.1
+bitshares
 autobahn
-pycrypto==2.6.1
 pyyaml
 
 # flask

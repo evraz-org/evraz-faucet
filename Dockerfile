@@ -4,13 +4,12 @@ WORKDIR /opt/faucet
 
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install uptick
-RUN pip install uwsgi
+RUN pip install uptick uwsgi 
 
 COPY . .
 #RUN python manage.py install
 
-RUN uptick set node "wss://node.xbts.io/ws"
+RUN uptick set node "wss://btsws.roelandp.nl/ws"
 
 EXPOSE 9090
 
