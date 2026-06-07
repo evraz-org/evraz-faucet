@@ -80,8 +80,8 @@ app.logger.addHandler(log_handler_mail)
 app.logger.addHandler(log_handler_rotate)
 app.logger.addHandler(log_handler_stdout)
 
-# Load models
-from . import models
+# Load views and models
+from . import views, models
 
 # Database
 with app.app_context():
