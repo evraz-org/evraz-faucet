@@ -107,7 +107,11 @@ def tapbasic(referrer):
         log.error(traceback.format_exc())
         return api_error(str(e))
 
-    models.Accounts(account["name"], ip)
+    try:
+        models.Accounts(account["name"], ip)
+    except Exception as e:
+        log.error(traceback.format_exc())
+        return api_error(str(e))
 
     balance = registrar.balance(config.core_asset)
     if balance and balance.amount < config.balance_mailthreshold:

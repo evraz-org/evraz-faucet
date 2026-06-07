@@ -1,5 +1,6 @@
 from sqlalchemy.sql import func
 from sqlalchemy.orm import load_only
+from sqlalchemy.exc import IntegrityError
 from . import db
 import datetime
 import json
@@ -21,8 +22,12 @@ class Accounts(db.Model):
         self.ip = ip
         self.created = datetime.datetime.now()
         db.session.add(self)
-        db.session.commit()
-
+        try:
+            db.session.commit()
+        except IntegrityError as e:
+            db.session.rollback()
+            raise ValueError("Account already exists") from e
+        
     @staticmethod
     def getIps():
         ips = []
